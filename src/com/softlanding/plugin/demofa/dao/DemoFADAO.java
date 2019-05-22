@@ -41,7 +41,7 @@ public class DemoFADAO {
   /**
    * 
    * @return An array of strings.
-   */ 
+   */
   public ArrayList<String> getRecords() {
     Connection con = null;
     Statement stmt = null;
@@ -75,7 +75,7 @@ public class DemoFADAO {
     }
     return stringArray;
 
-  } 
+  }
 
   /**
    * 
@@ -87,7 +87,6 @@ public class DemoFADAO {
     String deleteStatement = "delete from fadevlib.mstclr where CLRCDE = '" + colourCode.trim()
         + "'";
     String error = "";
-    System.out.println(deleteStatement);
 
     con = getConnection(this.server, this.userId, this.password);
     try {
@@ -96,7 +95,7 @@ public class DemoFADAO {
       error = e.toString();
     }
     try {
-     // stmt.executeQuery(deleteStatement); 
+      // stmt.executeQuery(deleteStatement);
       stmt.executeUpdate(deleteStatement);
     } catch (SQLException e) {
       error = e.toString();

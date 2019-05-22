@@ -19,7 +19,7 @@ import java.util.ArrayList;
  * @author FXA
  *
  */
-public interface DemoFADAO1 {
+public interface IDemoFADAO {
  
 
   /**

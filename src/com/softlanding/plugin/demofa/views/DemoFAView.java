@@ -34,11 +34,9 @@ import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.viewers.ArrayContentProvider;
 import org.eclipse.jface.viewers.DoubleClickEvent;
 import org.eclipse.jface.viewers.IDoubleClickListener;
-import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.ITableLabelProvider;
 import org.eclipse.jface.viewers.LabelProvider;
-import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.jface.viewers.TableViewer;
 
 import org.eclipse.swt.widgets.Menu;
@@ -48,13 +46,11 @@ import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.SWT;
 
 import java.util.Iterator;
-import java.util.ListIterator;
 
 import javax.inject.Inject;
 
-
 import com.softlanding.plugin.demofa.dao.DemoFADAO;
-import com.softlanding.plugin.demofa.dao.DemoFAHardCode;
+//import com.softlanding.plugin.demofa.dao.DemoFAHardCode;
 
 /**
  * This sample class demonstrates how to plug-in a new workbench view. The view
@@ -84,6 +80,8 @@ public class DemoFAView extends ViewPart {
   private TableViewer viewer;
   private Action delete;
   private Action doubleClickAction;
+  private DemoFADAO connect;
+//private DemoFAHardCode connect;
 
   /**
    * 
@@ -112,8 +110,9 @@ public class DemoFAView extends ViewPart {
     viewer = new TableViewer(parent, SWT.MULTI | SWT.H_SCROLL | SWT.V_SCROLL | SWT.BORDER);
 
     viewer.setContentProvider(ArrayContentProvider.getInstance());
-//    DemoFADAO connect = new DemoFADAO();
-    DemoFAHardCode connect = new DemoFAHardCode();
+    //DemoFADAO connect = new DemoFADAO();
+//    DemoFAHardCode connect = new DemoFAHardCode();
+    getConnection();
     viewer.setInput(connect.getRecords());
 //    Table table = viewer.getTable();
 //    new TableColumn(table, SWT.LEFT).setText("First Name");
@@ -192,33 +191,15 @@ public class DemoFAView extends ViewPart {
   private void makeActions() {
     delete = new Action() {
       public void run() {
-        showMessage("Record deleted");
-        ISelection is = viewer.getSelection();
-        String d = is.toString();
         IStructuredSelection iss = viewer.getStructuredSelection();
-        d = iss.iterator().toString();
-        //DemoFADAO connect = new DemoFADAO();
-        DemoFAHardCode connect = new DemoFAHardCode();
-        //
-        Iterator<?> selectedElements = ((IStructuredSelection)is).iterator();
-//      Object selectedElement = selectedElements.next();
-//      ArrayList<Object> selectionList = new ArrayList<Object> ();
-//      selectionList.add(selectedElement);
-      while (selectedElements.hasNext()) {
-        d = selectedElements.next().toString().substring(2, 6);
-        connect.delete(d);
-      } 
-      Iterator iter = iss.iterator();
-      while (iter.hasNext()) {
-        String obj1 = ((String)iter.next()).substring(2, 6);
-      }
-//      ListIterator<String> iter = list.iterator();
-//      while (iter.hasNext()) {
-//        String str = iter.next();
-//      }
-      
-        //
+        @SuppressWarnings("unchecked")
+        Iterator<String> iter = iss.iterator();
+        getConnection();
+        while (iter.hasNext()) {
+          connect.delete(((String) iter.next()).substring(2, 6));
+        }
 
+        showMessage("Record deleted");
         viewer.refresh();
         viewer.setInput(connect.getRecords());
       }
@@ -230,8 +211,7 @@ public class DemoFAView extends ViewPart {
     doubleClickAction = new Action() {
       public void run() {
         IStructuredSelection selection = viewer.getStructuredSelection();
-        Object obj = selection.getFirstElement();
-        showMessage("Double-click detected on " + obj.toString());
+        showMessage(selection.getFirstElement().toString());
       }
     };
   }
@@ -260,4 +240,14 @@ public class DemoFAView extends ViewPart {
     viewer.getControl().setFocus();
   }
 
+  /**
+   * 
+   */
+  private void getConnection() {
+    if (this.connect == null) {
+      connect = new DemoFADAO();
+   // connect = new DemoFAHardCode();
+    }
+  }
+  
 }
