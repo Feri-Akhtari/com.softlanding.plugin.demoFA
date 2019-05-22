@@ -30,6 +30,7 @@ public class DemoFADAO {
   private String server = "jdbc:as400://10.0.28.154";
   private String userId = "feri";
   private String password = "domria2k";
+  private  Connection con = null;
 
   /**
    * 
@@ -43,7 +44,7 @@ public class DemoFADAO {
    * @return An array of strings.
    */
   public ArrayList<String> getRecords() {
-    Connection con = null;
+   //Connection con = null;
     Statement stmt = null;
     ResultSet rs = null;
     ArrayList<String> stringArray = new ArrayList<String>();
@@ -51,7 +52,7 @@ public class DemoFADAO {
 
     con = getConnection(this.server, this.userId, this.password);
     try {
-      stmt = con.createStatement();
+      stmt =this.con.createStatement();
     } catch (SQLException e1) {
 
     }
@@ -69,7 +70,8 @@ public class DemoFADAO {
     }
 
     try {
-      con.close();
+     this.con.close();
+     this.con = null;
     } catch (SQLException e) {
 
     }
@@ -82,15 +84,15 @@ public class DemoFADAO {
    * @param colourCode colour
    */
   public void delete(String colourCode) {
-    Connection con = null;
+    //Connection con = null;
     Statement stmt = null;
     String deleteStatement = "delete from fadevlib.mstclr where CLRCDE = '" + colourCode.trim()
         + "'";
     String error = "";
 
-    con = getConnection(this.server, this.userId, this.password);
+    this.con = getConnection(this.server, this.userId, this.password);
     try {
-      stmt = con.createStatement();
+      stmt = this.con.createStatement();
     } catch (SQLException e) {
       error = e.toString();
     }
@@ -102,7 +104,8 @@ public class DemoFADAO {
     }
 
     try {
-      con.close();
+     this.con.close();
+     this.con = null;
     } catch (SQLException e) {
       error = e.toString();
     }
@@ -118,14 +121,16 @@ public class DemoFADAO {
    */
   private Connection getConnection(String server1, String userId1, String password1) {
 
-    Connection con = null;
+    //Connection con = null;
+    if (this.con == null) {
     try {
-      con = DriverManager.getConnection(server1, userId1, password1);
+      this.con = DriverManager.getConnection(server1, userId1, password1);
 
     } catch (SQLException e) {
 
     }
-    return con;
+    }
+    return this.con;
   }
 
 }
