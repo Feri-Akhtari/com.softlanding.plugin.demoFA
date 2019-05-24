@@ -10,9 +10,11 @@
 * UNICOM SYSTEMS, INC.
 *
 */
-package com.softlanding.plugin.demofa.dao;
+package com.softlanding.plugin.demoFA.dao;
 
 import java.util.ArrayList;
+
+import com.softlanding.plugin.demoFA.products.Colour;
 
 /**
  * 
@@ -24,10 +26,28 @@ public interface IDemoFADAO {
 
   /**
    * 
-   * @return
+   * @return List of Strings
    */
 //  ArrayList<String> getRecords() throws ConException;
   ArrayList<String> getRecords();
+  
+  /**
+   * 
+   * @return RrayList of Colour Objects
+   */
+  ArrayList<Colour> getColours();
+  
+  /**
+   * 
+   * @param colourCode String code
+   */
+  void delete(String colourCode);
+  
+  /**
+   *
+   * @param colour Colour Object
+   */
+  void deleteColour(Colour colour);
 
 
 }

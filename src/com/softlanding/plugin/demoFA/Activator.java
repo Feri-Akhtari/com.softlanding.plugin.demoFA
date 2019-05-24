@@ -1,4 +1,4 @@
-package com.softlanding.plugin.demofa;
+package com.softlanding.plugin.demoFA;
 
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.osgi.framework.BundleContext;

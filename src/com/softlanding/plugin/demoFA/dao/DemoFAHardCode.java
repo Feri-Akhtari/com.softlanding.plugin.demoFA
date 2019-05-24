@@ -11,17 +11,19 @@
 *
 */
 
-package com.softlanding.plugin.demofa.dao;
+package com.softlanding.plugin.demoFA.dao;
 
 
 import java.util.ArrayList;
+
+import com.softlanding.plugin.demoFA.products.*;
 
 /**
  * 
  * @author FXA
  *
  */
-public class DemoFAHardCode {
+public class DemoFAHardCode implements IDemoFAHardCode {
 
   /**
    * 
@@ -48,6 +50,23 @@ public class DemoFAHardCode {
     return stringArray;
 
   } 
+  
+  /**
+   * @return colourArray ArrayList
+   */
+  public ArrayList<Colour> getColours() {
+    
+    ArrayList<Colour> colourArray = new ArrayList<Colour>();
+    
+    colourArray.add(new Colour("A", "0001", "Blue", "Blue"));
+    colourArray.add(new Colour("A", "0002", "Green", "Green"));
+    colourArray.add(new Colour("A", "0003", "Red", "Red"));
+    colourArray.add(new Colour("A", "0004", "Yellow", "Yellow"));
+    colourArray.add(new Colour("A", "0005", "White", "White"));
+    colourArray.add(new Colour("A", "0006", "Black", "Black"));
+    
+    return colourArray;
+  }
 
   /**
    * 
@@ -55,7 +74,14 @@ public class DemoFAHardCode {
    */
   public void delete(String colourCode) {
    
-    String d = "";
+  }
+  
+  /**
+   * 
+   * @param colour Colour
+   */
+  public void deleteColour(Colour colour) {
+    
   }
 
   

@@ -10,9 +10,9 @@
       </category>
       <view
             id="com.softlanding.plugin.demofa.views.DemoFAView"
-            name="DemoFA View"
-            icon="icons/sample.png"
-            class="com.softlanding.plugin.demofa.views.DemoFAView"
+            name="DemoFA - Colour View"
+            icon="icons/sample@2x.png"
+            class="com.softlanding.plugin.demoFA.views.DemoFAView"
             category="com.softlanding.plugin.demoFA"
             inject="true">
       </view>
